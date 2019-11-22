@@ -5,7 +5,7 @@ Inspired by Mike Ash's [article](https://www.mikeash.com/pyblog/friday-qa-2015-0
 
 ## API
 
-The general behavior of this API is inspired by Apple's Grand Central Dispatch (GCD). The API allows for dispatching
+The general behavior of this API is inspired by Apple's [Grand Central Dispatch (GCD)](https://en.wikipedia.org/wiki/Grand_Central_Dispatch). The API allows for dispatching
 tasks (functions) `synchronously` or `asynchronously`. There are two flavors of queues: `serial` and `concurrent`.
 
 `serial` - Tasks will be executed one-at-a-time in the order they are queued.
