@@ -3,16 +3,9 @@ from threading import Condition
 from threading import Lock
 
 
-class PyCentralDispatch:
-  """
-  This is a non-optimal implementation inspired by Apple's Grand Central Dispatch.
-  I wrote this for convenience without much worry for optimization.
-
-  Inspired by https://www.mikeash.com/pyblog/friday-qa-2015-09-04-lets-build-dispatch_queue.html
-  """
+class PyCentralDispatchQueue:
+  """Either a serial or concurrent dispatch queue."""
   __thread_pool = ThreadPool()
-  __global_queue_lock = Lock()
-  __global_dispatch_queue = None  # Lazily initialized on call to `global_queue`.
 
   def __init__(self, is_serial_queue=False):
     self.__is_serial_queue = is_serial_queue
@@ -20,14 +13,6 @@ class PyCentralDispatch:
     # Stores a tuple of (function, args, kwargs)
     self.__pendingBlocks = []
     self.__is_serial_queue_active = False
-
-  @classmethod
-  def global_queue(cls):
-    cls.__global_queue_lock.acquire()
-    if not cls.__global_dispatch_queue:
-      cls.__global_dispatch_queue = cls()
-    cls.__global_queue_lock.release()
-    return cls.__global_dispatch_queue
 
   def __dispatch_one_block(self):
     """Dispatches the most first block in the queue."""
@@ -84,3 +69,26 @@ class PyCentralDispatch:
     while done['state'] is False:
       condition.wait()
     condition.release()
+
+
+class PyCentralDispatch:
+  """
+  This is a non-optimal implementation inspired by Apple's Grand Central Dispatch.
+  I wrote this for convenience without much worry for optimization.
+
+  Inspired by https://www.mikeash.com/pyblog/friday-qa-2015-09-04-lets-build-dispatch_queue.html
+  """
+  __global_queue_lock = Lock()
+  __global_dispatch_queue = None  # Lazily initialized on call to `global_queue`.
+
+  @classmethod
+  def global_queue(cls):
+    cls.__global_queue_lock.acquire()
+    if not cls.__global_dispatch_queue:
+      cls.__global_dispatch_queue = PyCentralDispatchQueue()
+    cls.__global_queue_lock.release()
+    return cls.__global_dispatch_queue
+
+  @classmethod
+  def create_queue(cls, is_serial_queue=False):
+    return PyCentralDispatchQueue(is_serial_queue=is_serial_queue)
