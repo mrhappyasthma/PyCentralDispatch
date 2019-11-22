@@ -22,6 +22,8 @@ immediately.
 
 ### Global queue
 
+A shared concurrent queue singleton for access across the application.
+
 ```
 from py_central_dispatch import PyCentralDispatch
 
@@ -50,6 +52,8 @@ local_serial_queue.dispatch_async(some_function_with_parameters, args=(3, 5))  #
 ```
 
 ### Concurrent queues
+
+Concurrent queues allow for tasks to execute in parallel. However the tasks are started in the order they were queued.
 
 ```
 from py_central_dispatch import PyCentralDispatch
