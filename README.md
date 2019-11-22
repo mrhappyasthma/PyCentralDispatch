@@ -63,5 +63,5 @@ local_concurrent_queue = PyCentralDispatch.create_queue()  # Defaults to concurr
 def some_function_with_parameters(a, b=5):
   print a + b
 
-local_concurrent_queue.dispatch_async(some_function_with_parameters, args=(3, 3))  # Prints `6`
+local_concurrent_queue.dispatch_async(some_function_with_parameters, args=(3,), kwargs={'b' : 3})  # Prints `6`
 ```
