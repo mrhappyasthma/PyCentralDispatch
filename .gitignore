@@ -1,1 +1,4 @@
 *.pyc
+dist/
+PyCentralDispatch.egg-info/
+build/
