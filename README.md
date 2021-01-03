@@ -3,6 +3,14 @@ A Grand Central Dispatch (GCD) inspired API for python. Not optimal, mostly just
 
 Inspired by Mike Ash's [article](https://www.mikeash.com/pyblog/friday-qa-2015-09-04-lets-build-dispatch_queue.html).
 
+## Install
+
+Install the package using `pip`.
+
+```
+python3 -m pip install pycentraldispatch
+```
+
 ## API
 
 The general behavior of this API is inspired by Apple's [Grand Central Dispatch (GCD)](https://en.wikipedia.org/wiki/Grand_Central_Dispatch). The API allows for dispatching
@@ -25,7 +33,7 @@ immediately.
 A shared concurrent queue singleton for access across the application.
 
 ```
-from py_central_dispatch import PyCentralDispatch
+from pycentraldispatch import PyCentralDispatch
 
 # This same singleton queue can be used anywhere in the application.
 global_queue = PyCentralDispatch.global_queue()
@@ -41,7 +49,7 @@ global_queue.dispatch_sync(some_function)  # Prints "hello"
 Serial queues do not provide any parallelization. They execute tasks one-at-a-time in the order they were received.
 
 ```
-from py_central_dispatch import PyCentralDispatch
+from pycentraldispatch import PyCentralDispatch
 
 local_serial_queue = PyCentralDispatch.create_queue(is_serial_queue=True)
 
@@ -56,7 +64,7 @@ local_serial_queue.dispatch_async(some_function_with_parameters, args=(3, 5))  #
 Concurrent queues allow for tasks to execute in parallel. However the tasks are started in the order they were queued.
 
 ```
-from py_central_dispatch import PyCentralDispatch
+from pycentraldispatch import PyCentralDispatch
 
 local_concurrent_queue = PyCentralDispatch.create_queue()  # Defaults to concurrent queue.
 

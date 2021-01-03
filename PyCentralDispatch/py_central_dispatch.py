@@ -1,4 +1,4 @@
-from thread_pool import ThreadPool
+from pycentraldispatch.thread_pool import ThreadPool
 from threading import Condition
 from threading import Lock
 
