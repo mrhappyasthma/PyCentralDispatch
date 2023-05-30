@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pycentraldispatch",
-    version="1.0.11",
+    version="1.0.12",
     author="MrHappyAsthma",
     author_email="mrhappyasthma@gmail.com",
     description="A simple Grand Central Dispatch (GCD) inspired API for python.",
