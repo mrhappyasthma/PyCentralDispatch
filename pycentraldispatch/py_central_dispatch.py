@@ -31,7 +31,7 @@ class PyCentralDispatchQueue:
       if self.__is_serial_queue:
         self.__lock.acquire()
         if len(self.__pendingBlocks) > 0:
-          self.__dispatchOneBlock()
+          self.__dispatch_one_block()
         else:
           self.__is_serial_queue_active = False
         self.__lock.release()
